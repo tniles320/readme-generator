@@ -1,7 +1,7 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 const path = require("path");
-const readme = require("./utils/readme").default;
+const readme = require("./utils/readme");
 
 const questionList = [
     {
@@ -16,9 +16,13 @@ const questionList = [
     },
     {
         type: "input",
-        name: "instructions",
-        message: "What command needs to be run for the installation of this project?",
-        default: "npm i"
+        name: "image",
+        message: "Input a destination for an image (ex: image.png, ensure the file is in a folder named 'images')"
+    },
+    {
+        type: "input",
+        name: "installation",
+        message: "What command needs to be run for the installation of node modules for this project?",
     },
     {
         type: "input",
@@ -34,13 +38,12 @@ const questionList = [
         type: "input",
         name: "test",
         message: "What command needs to be run to run tests for this project?",
-        default: "npm test"
     },
     {
         type: "list",
         name: "license",
         message: "What license does your project use?",
-        choices: ["MIT", "APACHE 2.0", "GPL 3.0", "BSD 3", "None"]
+        choices: ["APACHE2.0", "GPL3.0", "MIT", "BSD3", "BSL1.0", "CCZ1.0", "EPL2.0"]
     },
     {
         type: "input",
@@ -53,13 +56,14 @@ const questionList = [
         message: "What is your email address?"
     }
 ]
-
+// writes to a readme file in this directory using user input data
 function writeReadme(file, data) {
     return fs.writeFileSync(path.join(process.cwd(),file), data);
 };
 
+
 inquirer.prompt(questionList)
 .then((res) => {
-    console.log(res)
     writeReadme("README.md", readme({...res}));
 });
+
