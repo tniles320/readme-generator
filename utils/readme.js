@@ -1,3 +1,4 @@
+// generates readme file including user entered data
 const readme = (data) => {
     return `# ${data.title}
 

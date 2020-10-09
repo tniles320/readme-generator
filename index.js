@@ -61,7 +61,7 @@ function writeReadme(file, data) {
     return fs.writeFileSync(path.join(process.cwd(),file), data);
 };
 
-
+// prompts the user with the list of questions
 inquirer.prompt(questionList)
 .then((res) => {
     writeReadme("README.md", readme({...res}));
